@@ -98,12 +98,9 @@ request(
       }
     }
     console.log('There are ' + links.length + ' hotels or restaurants in France.');
-
-    var a = 0;
-    while(a < links.length)
-    {
+    links.forEach(function (url) {
       request(
-        {uri: links[a]},
+        {uri: url},
         function(error, response, body)
         {
           const isH = [];
@@ -117,6 +114,7 @@ request(
         for(var j = 0; j < 2; j++)
         {
           var test = JSON.stringify(isH[j]);
+          console.log(test);
           if(test.includes('Hôtel')===true)
           {
             hotel = true;
@@ -128,33 +126,85 @@ request(
         }
         if(hotel === false || restaurant === false)
         {
-          isAHotelRestaurant[a] = false;
+          isAHotelRestaurant.push(false);
         }
         else {
-          isAHotelRestaurant[a] = true;
+          isAHotelRestaurant.push(true);
         }
       }
       );
-      a++;
-    }
-
+    });
+    chooseHotel();
 }
 );}
 
-function chooseHotel()
-{
-  for(var i = 0; i < isAHotelRestaurant.length; i++)
-  {
-    if(isAHotelRestaurant[i]===false)
+function chateaux2(){
+request(
+    { uri: "https://www.relaischateaux.com/fr/site-map/etablissements"},
+
+    function(error, response, body){
+	  var $ = cheerio.load(body);
+
+    $('#countryF').find("h3:contains('France')").parent().find('.listDiamond > li >a').each( function (i, element) {
+      var link = $(element).attr('href');
+      links.push(link);
+    });
+
+    for(var i = 0; i < links.length; i++)
     {
-      isAHotelRestaurant.splice(i, 1);
-      links.splice(i, 1);
+      if(JSON.stringify(links[i]).includes('/chef/')===true)
+      {
+        links.splice(i, 1);
+      }
+     if(JSON.stringify(links[i]).includes('/maitre-maison/')===true)
+      {
+        links.splice(i, 1);
+      }
     }
-  }
+    console.log('There are ' + links.length + ' hotels or restaurants in France.');
+    var compteur=0;
+		links.forEach(function(url) {
+    var responses = [];
+    request({uri: url}, function(error, response, body) {
+    $ = cheerio.load(body);
+    var isHotel =$('.jsSecondNavMain').find("a").first().text();
+    var isRestaurant= $('.jsSecondNavMain').find("li").next().find("a").first().text();
+    if(isHotel.includes('Hôtel')==true && isRestaurant.includes('Restaurant')==true)
+    {
+	  }else
+	  {
+		    links.splice(compteur,1);
+	  }
+	  compteur++;
+ 	  console.log(links.length);
+  });
+
+
+});
+}
+);}
+
+function isStarsRestaurant()
+{
+    for(var i = 0; i < links.length; i++)
+    {
+      var isPresent = false;
+      for(var j = 0; j < starsRestaurants.length; j++)
+      {
+        var star = JSON.stringify(starsRestaurants[j]);
+        if(JSON.stringify(links[i]) === star)
+        {
+            isPresent = true;
+            break;
+        }
+      }
+      if(!isPresent)
+      {
+        links.splice(i, 1);
+      }
+    }
 }
 
-
-
 //michelin();
-chateaux();
+chateaux2();
 //isHotelRestaurant(links[0], 0);
