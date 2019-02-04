@@ -178,7 +178,7 @@ request(
 	  compteur++;
  	  console.log(links.length);
   });
-
+    isStarsRestaurant();
 
 });
 }
@@ -203,6 +203,7 @@ function isStarsRestaurant()
         links.splice(i, 1);
       }
     }
+    console.log('There are ' + links.length + ' stars hotel/restaurants.');
 }
 
 //michelin();
