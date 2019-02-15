@@ -3,6 +3,7 @@ var cheerio = require('cheerio');
 var bodyParser = require('body-parser');
 var express = require('express');
 var fs = require('fs');
+var request = require("request-promise");
 
 const fetch = require('node-fetch');
 const links = [];
@@ -15,9 +16,9 @@ async function michelin(){
         {
           uri : "https://restaurant.michelin.fr/restaurants/france/restaurants-1-etoile-michelin/restaurants-2-etoiles-michelin/restaurants-3-etoiles-michelin/page-"+i
         },
-        function(error, response, html) {
+        async function(error, response, html) {
 
-        var $ = cheerio.load(html);
+        let $ = cheerio.load(html);
 
         var div = $('.poi_card-display-title').each(function(i, element)
         {
@@ -28,6 +29,13 @@ async function michelin(){
       }
     );
     i++;}
+    return starsRestaurants;
+}
+
+async function f(){
+var tab = await michelin();
+console.log(tab);
+console.log(tab.length);
 }
 
 async function chateaux(){
@@ -35,7 +43,7 @@ async function chateaux(){
     { uri: "https://www.relaischateaux.com/fr/site-map/etablissements"},
 
     function(error, response, body){
-	  var $ = cheerio.load(body);
+	  let $ = cheerio.load(body);
 
     $('#countryF').find("h3:contains('France')").parent().find('.listDiamond > li >a').each( function (i, element) {
       var link = $(element).attr('href');
@@ -129,12 +137,13 @@ async function getPrice(url, id, mois){
 		}
  }
 
- async function isStarsRestaurant(){
-   console.log(links.length + ' taillw links');
+/*async function isStarsRestaurant(){
+   console.log(links.length + ' taille links');
    links.forEach(async function(url) {
    var responses = [];
+   let compteur = 0;
    await request({uri: url}, function(error, response, body) {
-   $ = cheerio.load(body);
+   let $ = cheerio.load(body);
    var rest1 = null, rest2 = null;
    if($('.jsSecondNavSub').find("li").first().find("a").text() != '')
    {
@@ -153,7 +162,7 @@ async function getPrice(url, id, mois){
    }
    var isPresent = false;
 
-   for(var j = 0; j < starsRestaurants.length; j++)
+   for(let j = 0; j < starsRestaurants.length; j++)
    {
      var star = JSON.stringify(starsRestaurants[j]);
      if(star.includes(rest1) == true)
@@ -177,11 +186,12 @@ async function getPrice(url, id, mois){
    console.log('There are ' + links.length + ' stars hotel/restaurants.');
  });
 
- }
+}*/
 
-//michelin();
-//chateaux();
-//isHotelRestaurant(links[0], 0);
+//f();
+michelin();
+chateaux();
+isStarsRestaurant();
 //getPrice();
 /*function chateaux2(){
 request(
