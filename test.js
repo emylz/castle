@@ -8,32 +8,6 @@ const fetch = require('node-fetch');
 const links = [];
 const starsRestaurants  =[];
 
-async function michelin(){
-  var i = 1;
-    while(i < 36){
-await request(
-
-    {
-      uri : "https://restaurant.michelin.fr/restaurants/france/restaurants-1-etoile-michelin/restaurants-2-etoiles-michelin/restaurants-3-etoiles-michelin/page-"+i
-    },
-    function(error, response, html) {
-
-    var $ = cheerio.load(html);
-
-    var div = $('.poi_card-display-title').each(function(i, element)
-    {
-      var name = $(element).text();
-      //name = name.replace(/\s/g, '');
-      starsRestaurants.push(name);
-    });
-  }
-
-
-);
-
-
-i++;}}
-
 async function chateaux(){
  await request(
     { uri: "https://www.relaischateaux.com/fr/site-map/etablissements"},
@@ -230,54 +204,5 @@ request(
     console.log(isAHotelRestaurant[0]);
   }
   );
-
-}*/
-/*async function isStarsRestaurant(){ 
-  console.log(links.length + ' taillw links');
-  links.forEach(async function(url) {
-  var responses = [];
-  await request({uri: url}, function(error, response, body) {
-  $ = cheerio.load(body);
-  var rest1 = null, rest2 = null;
-  if($('.jsSecondNavSub').find("li").first().find("a").text() != '')
-  {
-    rest1 =$('.jsSecondNavSub').find("li").first().find("a").text();
-    rest1 = rest1.replace(/\s/g, '');
-    if($('.jsSecondNavSub').find("li").next().find("a").text() != '')
-    {
-      rest2 = $('.jsSecondNavSub').find("li").next().find("a").text();
-      rest2 = rest2.replace(/\s/g, '');
-    }
-  }
-  else
-  {
-    rest1 = $('.hotelTabsHeaderTitle').find("h3").text();
-    rest1 = rest1.replace(/\s/g, '');
-  }
-  var isPresent = false;
-
-  for(var j = 0; j < starsRestaurants.length; j++)
-  {
-    var star = JSON.stringify(starsRestaurants[j]);
-    if(star.includes(rest1) == true)
-    {
-        isPresent = true;
-        break;
-    }
-    if(rest2 != null && star.includes(rest2) == true)
-    {
-        isPresent = true;
-        break;
-    }
-  }
-  if(isPresent == false)
-  {
-    links.splice(compteur, 1);
-  }
-});
-  compteur++;
-  console.log(links.length);
-  console.log('There are ' + links.length + ' stars hotel/restaurants.');
-});
 
 }*/
