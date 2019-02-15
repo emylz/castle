@@ -149,9 +149,8 @@ async function getPrice(url, id, mois){
  }
 
 
-
-michelin();
-chateaux();
+//michelin();
+//chateaux();
 //isHotelRestaurant(links[0], 0);
 //getPrice();
 /*function chateaux2(){
@@ -233,7 +232,7 @@ request(
   );
 
 }*/
-/*async function isStarsRestaurant(){
+/*async function isStarsRestaurant(){ 
   console.log(links.length + ' taillw links');
   links.forEach(async function(url) {
   var responses = [];
