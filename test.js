@@ -3,6 +3,8 @@ var cheerio = require('cheerio');
 var bodyParser = require('body-parser');
 var express = require('express');
 var fs = require('fs');
+var michelin = require('./michelin');
+var reataurantWithStars = require('./starsRestaurant');
 
 const fetch = require('node-fetch');
 const links = [];
@@ -20,7 +22,7 @@ async function chateaux(){
       links.push(link);
     });
 
-    for(var i = 0; i < links.length; i++)
+    for(let i = 0; i < links.length; i++)
     {
       if(JSON.stringify(links[i]).includes('/chef/')===true)
       {
@@ -32,7 +34,7 @@ async function chateaux(){
       }
     }
     console.log('There are ' + links.length + ' hotels or restaurants in France.');
-    var compteur=0;
+    let compteur=0;
 		links.forEach(async function(url) {
     var responses = [];
     await request({uri: url}, function(error, response, body) {
@@ -63,7 +65,7 @@ async function chateaux(){
       }
       var isPresent = false;
 
-      for(var j = 0; j < starsRestaurants.length; j++)
+      for(let j = 0; j < starsRestaurants.length; j++)
       {
         var star = JSON.stringify(starsRestaurants[j]);
         if(star.includes(rest1) == true)
@@ -81,21 +83,6 @@ async function chateaux(){
       {
         links.splice(compteur, 1);
       }
-      else
-      {
-        var id = $('.ajaxPages').find('#tabProperty').attr('data-gtm-datalayer');
-        var index = id.indexOf("synxis_id");
-        if(index != -1){
-            var indexComma = id.indexOf(",", index + 11 );
-            id = id.substring(index + 11, indexComma);
-        }else{ id = 'noSynId'; }
-
-        console.log(id + ' id');
-
-
-
-      }
-      console.log(links.length + '=> taille links');
     }
 	  compteur++;
   });
