@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 
-var request = require("request");
+var request = require("request-promise");
 var cheerio = require('cheerio');
+
+const michelin = require('./michelin');
+
+
+
+
 
 class App extends Component {
 
@@ -14,9 +20,7 @@ class App extends Component {
 	return (
       <div className="App">
 
-		<ul>
-
-		</ul>
+		<table/>
 
 		<button id ='btn_1'type="button" >Hotel from relais&chateau</button>{'   '}
 		<button id='btn_2' type="button" >Hotels with stars restaurant</button>{'   '}
@@ -28,6 +32,8 @@ class App extends Component {
 }
 
 
-
-
 export default App;
+
+
+
+

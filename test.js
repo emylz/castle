@@ -1,4 +1,3 @@
-var request = require("request");
 var cheerio = require('cheerio');
 var bodyParser = require('body-parser');
 var express = require('express');
@@ -6,22 +5,23 @@ var fs = require('fs');
 var request = require("request-promise");
 var fetch = require('node-fetch');
 var tab = new Object();
-const michelin = require('./michelin.js');
-//var star = michelin.exports;
+const michelin = require('./michelin');
+var starsRestaurants = michelin.exp;
 
 var links = [];
-var starsRestaurants = [];
 var url = [];
+
+var jsonTab = [];
 
 async function michelin_(){
   let i = 1;
   let star = [];
     while(i < 36){
-        await request(
+       await request(
         {
           uri : "https://restaurant.michelin.fr/restaurants/france/restaurants-1-etoile-michelin/restaurants-2-etoiles-michelin/restaurants-3-etoiles-michelin/page-"+i
         },
-        async function(error, response, html) {
+         function(error, response, html) {
 
         let $ = cheerio.load(html);
 
@@ -51,9 +51,8 @@ async function getUrl(){
 }
 
 async function chateaux(){
-  starsRestaurants = await michelin_();
       links = await getUrl();
-      console.log(links.length + ' lin');
+      console.log(starsRestaurants.length + ' lin');
         for(let i = 0; i < links.length; i++)
         {
             if(JSON.stringify(links[i]).includes('/chef/')===true)
@@ -129,16 +128,23 @@ async function chateaux(){
                     if(id != 'noSynId')
                     {
                       (async () => {
-          							price = await getPrice(url,id,7);
+                        for(let i = 1; i < 13; i++){
+                      			await getPrice(url,id,i);
+                          }
           						})();
-                      console.log(price + price);
                     }
                   }
                 }
   	             compteur++;
                });
             }
-            if(compteur < 200) console.log(links.length + ' rest');
+            if(compteur < 200)
+            {
+              fs.writeFile('./app/src/hotel.json', JSON.stringify(jsonTab, null, 4), function(err){
+              															console.log('File successfully written! - Check your project directory for the output.json file');
+              															if (err) console.log(err);
+              															});
+            }
 
 
         }
@@ -147,18 +153,21 @@ async function getPrice(url, id, mois){
 	let today = new Date();
 		const response = await fetch("https://www.relaischateaux.com/fr/popin/availability/check?month=2019-"+mois+"&idEntity="+id+"&pax=2&room=1", {"credentials":"include","headers":{"accept":"application/json, text/javascript, */*; q=0.01","accept-language":"fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7","x-requested-with":"XMLHttpRequest"},"referrer":url,"referrerPolicy":"origin-when-cross-origin","body":null,"method":"GET","mode":"cors"});
 		let body =await response.json();
-		console.log("mooooooooois " +mois);
+    let array = [];
 		for (let i=1;i<32;i++)
 		{
 				let week_end = new Date( '2019-'+mois+'-'+i);
-				if (week_end.getDay() == 6 )//|| week_end.getDay()==6)
+				if (week_end.getDay() == 6)
 				{
           if (body['2019-'+mois].pricesPerDay[i]!=undefined){
-                  console.log(i);
-                  console.log(body['2019-'+mois].pricesPerDay[i]);
+                //  console.log(i);
+                  //console.log(body['2019-'+mois].pricesPerDay[i]);
+                  array.push(body['2019-'+mois].pricesPerDay[i]);
             }
 				}
 		}
+    let tmp = {id:id, link:url, month : mois, p1:array[0] , p2: array[1], p3: array[2], p4:array[3]};
+    jsonTab.push(tmp);
  }
 
 async function f(){
@@ -167,6 +176,7 @@ async function f(){
   url = await chateaux();
   getPrice
 }
+
 
 //f();
 //michelin();
