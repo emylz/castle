@@ -4,13 +4,15 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var fs = require('fs');
 var request = require("request-promise");
+var fetch = require('node-fetch');
 
-const fetch = require('node-fetch');
-const links = [];
-const starsRestaurants  =[];
+var links = [];
+var starsRestaurants = [];
+var url = [];
 
 async function michelin(){
   let i = 1;
+  let star = [];
     while(i < 36){
         await request(
         {
@@ -24,101 +26,103 @@ async function michelin(){
         {
             var name = $(element).text();
             name = name.trim();
-            starsRestaurants.push(name);
+            star.push(name);
         });
       }
     );
     i++;}
-    return starsRestaurants;
-}
-
-async function f(){
-var tab = await michelin();
-console.log(tab);
-console.log(tab.length);
+    return star;
 }
 
 async function chateaux(){
- await request(
-    { uri: "https://www.relaischateaux.com/fr/site-map/etablissements"},
+   request(
+      { uri: "https://www.relaischateaux.com/fr/site-map/etablissements"},
+        async function(error, response, body){
+	      let $ = cheerio.load(body);
 
-    function(error, response, body){
-	  let $ = cheerio.load(body);
+        $('#countryF').find("h3:contains('France')").parent().find('.listDiamond > li >a').each( function (i, element) {
+          var link = $(element).attr('href');
+          links.push(link);
+        });
 
-    $('#countryF').find("h3:contains('France')").parent().find('.listDiamond > li >a').each( function (i, element) {
-      var link = $(element).attr('href');
-      links.push(link);
-    });
-
-    for(let i = 0; i < links.length; i++)
-    {
-      if(JSON.stringify(links[i]).includes('/chef/')===true)
-      {
-        links.splice(i, 1);
-      }
-     if(JSON.stringify(links[i]).includes('/maitre-maison/')===true)
-      {
-        links.splice(i, 1);
-      }
-    }
-    console.log('There are ' + links.length + ' hotels or restaurants in France.');
-    let compteur=0;
-		links.forEach(async function(url) {
-    var responses = [];
-    await request({uri: url}, function(error, response, body) {
-    $ = cheerio.load(body);
-    var isHotel = $('.jsSecondNavMain').find("a").first().text();
-    var isRestaurant= $('.jsSecondNavMain').find("li").next().find("a").first().text();
-    if(isHotel.includes('Hôtel')==false || isRestaurant.includes('Restaurant')==false)
-    {
-      links.splice(compteur,1);
-	  }
-    else
-    {
-      var rest1 = null, rest2 = null;
-      if($('.jsSecondNavSub').find("li").first().find("a").text() != '')
-      {
-        rest1 =$('.jsSecondNavSub').find("li").first().find("a").text();
-        rest1 = rest1.trim();
-        if($('.jsSecondNavSub').find("li").next().find("a").text() != '')
+        for(let i = 0; i < links.length; i++)
         {
-          rest2 = $('.jsSecondNavSub').find("li").next().find("a").text();
-          rest2 = rest2.trim();
+            if(JSON.stringify(links[i]).includes('/chef/')===true)
+            {
+              links.splice(i, 1);
+            }
+            if(JSON.stringify(links[i]).includes('/maitre-maison/')===true)
+            {
+              links.splice(i, 1);
+            }
         }
-      }
-      else
-      {
-        rest1 = $('.hotelTabsHeaderTitle').find("h3").text();
-        rest1 = rest1.trim();
-      }
-      var isPresent = false;
+        console.log('There are ' + links.length + ' hotels or restaurants in France.');
+        let compteur=0;
+		    links.forEach(async function(url) {
+            var responses = [];
+             request({uri: url}, async function(error, response, body) {
+              $ = cheerio.load(body);
+              var isHotel = $('.jsSecondNavMain').find("a").first().text();
+              var isRestaurant= $('.jsSecondNavMain').find("li").next().find("a").first().text();
+              if(isHotel.includes('Hôtel')==false || isRestaurant.includes('Restaurant')==false)
+              {
+                links.splice(compteur,1);
+	            }
+              else
+              {
+                var rest1 = null, rest2 = null;
+                if($('.jsSecondNavSub').find("li").first().find("a").text() != '')
+                {
+                  rest1 =$('.jsSecondNavSub').find("li").first().find("a").text();
+                  rest1 = rest1.trim();
+                  if($('.jsSecondNavSub').find("li").next().find("a").text() != '')
+                  {
+                    rest2 = $('.jsSecondNavSub').find("li").next().find("a").text();
+                    rest2 = rest2.trim();
+                  }
+                }
+                else
+                {
+                  rest1 = $('.hotelTabsHeaderTitle').find("h3").text();
+                  rest1 = rest1.trim();
+                }
+                var isPresent = false;
 
-      for(let j = 0; j < starsRestaurants.length; j++)
-      {
-        var star = JSON.stringify(starsRestaurants[j]);
-        if(star.includes(rest1) == true)
-        {
-            isPresent = true;
-            break;
-        }
-        if(rest2 != null && star.includes(rest2) == true)
-        {
-            isPresent = true;
-            break;
-        }
-      }
-      if(isPresent == false)
-      {
-        links.splice(compteur, 1);
-      }
-    }
-	  compteur++;
-  });
+                for(let j = 0; j < starsRestaurants.length; j++)
+                {
+                  var star = JSON.stringify(starsRestaurants[j]);
+                  if(star.includes(rest1) == true)
+                  {
+                    isPresent = true;
+                    break;
+                  }
+                  if(rest2 != null && star.includes(rest2) == true)
+                  {
+                    isPresent = true;
+                    break;
+                  }
+                }
+                if(isPresent == false)
+                {
+                  links.splice(compteur, 1);
+                }
+              }
+	             compteur++;
+             });
 
-});
+           });
+           if(compteur == 149) console.log(links.length);
+         });
+         return links;
 }
-);
+
+async function f(){
+  starsRestaurants = await michelin();
+  console.log(starsRestaurants.length);
+  url = await chateaux();
 }
+
+
 
 async function getPrice(url, id, mois){
 	var today = new Date();
@@ -137,7 +141,7 @@ async function getPrice(url, id, mois){
 		}
  }
 
-/*async function isStarsRestaurant(){
+async function isStarsRestaurant(){
    console.log(links.length + ' taille links');
    links.forEach(async function(url) {
    var responses = [];
@@ -186,12 +190,12 @@ async function getPrice(url, id, mois){
    console.log('There are ' + links.length + ' stars hotel/restaurants.');
  });
 
-}*/
+}
 
-//f();
-michelin();
-chateaux();
-isStarsRestaurant();
+f();
+//michelin();
+//chateaux();
+//isStarsRestaurant();
 //getPrice();
 /*function chateaux2(){
 request(
