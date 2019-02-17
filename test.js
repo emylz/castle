@@ -144,7 +144,7 @@ async function getPrice(id, mois){
 		for (let i=1;i<32;i++)
 		{
 				let week_end = new Date( '2019-'+mois+'-'+i);
-				if (week_end.getDay() == 6)
+				if (week_end.getDay() == 6 || week_end.getDay() == 0)
 				{
           if (body['2019-'+mois].pricesPerDay[i]!=undefined){
                   let tmp = {id:id, month:mois, date:week_end, price:body['2019-'+mois].pricesPerDay[i] };
