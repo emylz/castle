@@ -1,15 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 
-var request = require("request-promise");
-var cheerio = require('cheerio');
-
-const michelin = require('./michelin');
-
-
-
-
-
 class App extends Component {
 
 
@@ -33,7 +24,3 @@ class App extends Component {
 
 
 export default App;
-
-
-
-
