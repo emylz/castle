@@ -171,14 +171,11 @@ async function getPrice(id, mois){
 				if (week_end.getDay() == 6)
 				{
           if (body['2019-'+mois].pricesPerDay[i]!=undefined){
-                  //array.push(body['2019-'+mois].pricesPerDay[i]);
                   let tmp = {id:id, month:mois, date:week_end, price:body['2019-'+mois].pricesPerDay[i] };
                   jsonTab.push(tmp);
             }
 				}
 		}
-    //let tmp = {id:id, month : mois, p1:array[0] , p2: array[1], p3: array[2], p4:array[3]};
-    //jsonTab.push(tmp);
  }
 
 chateaux();

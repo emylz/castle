@@ -11,7 +11,7 @@ class App extends Component {
   constructor(){
     super();
     this.state =  {
-      data:hotel,
+      data:hotel.sort((a,b) => (a.price.length > b.price.length) ? 1 : ((a.price.length < b.price.length) ? -1: ((a.price > b.price) ? 1 : ((b.price > a.price) ? -1 : 0)))),
       url:hotel_id
     }
   }
@@ -54,7 +54,7 @@ class App extends Component {
         for(let i = 0; i < 10; i++) date += hotel.date[i];
 
         return (
-            <li> {' url : '} <a href="url">{url}</a> {' date : '} {date} {' price : '} {hotel.price} </li>
+            <li> {' url : '} <a href={url}>{url}</a> {' date : '} {date} {' price : '} {hotel.price} </li>
         )
    })
 
