@@ -14,30 +14,6 @@ var jsonTab = [];
 var jsonArr = [];
 var idArray = [];
 
-async function michelin_(){
-  let i = 1;
-  let star = [];
-    while(i < 36){
-       await request(
-        {
-          uri : "https://restaurant.michelin.fr/restaurants/france/restaurants-1-etoile-michelin/restaurants-2-etoiles-michelin/restaurants-3-etoiles-michelin/page-"+i
-        },
-         function(error, response, html) {
-
-        let $ = cheerio.load(html);
-
-        var div = $('.poi_card-display-title').each(function(i, element)
-        {
-            var name = $(element).text();
-            name = name.trim();
-            star.push(name);
-        });
-      }
-    );
-    i++;}
-    return star;
-}
-
 async function getUrl(){
   let li = [];
   await request("https://www.relaischateaux.com/fr/site-map/etablissements",(error, response, body)=>{
@@ -168,7 +144,7 @@ async function getPrice(id, mois){
 		for (let i=1;i<32;i++)
 		{
 				let week_end = new Date( '2019-'+mois+'-'+i);
-				if (week_end.getDay() === 6 || week_end.getDay() ===7)
+				if (week_end.getDay() == 6)
 				{
           if (body['2019-'+mois].pricesPerDay[i]!=undefined){
                   let tmp = {id:id, month:mois, date:week_end, price:body['2019-'+mois].pricesPerDay[i] };
