@@ -60,7 +60,7 @@ class App extends Component {
 	return (
       <div className="App">
 
-      <header align="center"><b><big><big><big>This is the cheaper hotels of the week_end of the year 2019 </big></big></big></b></header>
+      <header align="center"><b><big><big><big>This is the cheaper hotels of all the week-ends of the year 2019 </big></big></big></b></header>
       <br/><br/>
 
       <br/><br/>
