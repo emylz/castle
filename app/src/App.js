@@ -5,19 +5,14 @@ import hotel_id from './Component/hotel_id.json';
 
 var choice = [];
 var idHotel = [];
-var sortHotel = [];
-
-var min = 0;
 
 class App extends Component {
 
   constructor(){
     super();
     this.state =  {
-      data:hotel
-    }
-    this.url = {
-      data:hotel_id
+      data:hotel,
+      url:hotel_id
     }
   }
 
@@ -45,19 +40,21 @@ class App extends Component {
 
 
  render() {
-   var hotelList = choice.map(hotel => {
+   var hotelList = this.state.data.map(hotel => {
         let url = '';
-        for(let i = 0; i < idHotel.length; i++)
+        for(let i = 0; i < this.state.data.length; i++)
         {
-          if(idHotel[i].id == hotel.id)
+          if(hotel.id == this.state.url[i].id)
           {
-            url = idHotel[i].url;
+            url = this.state.url[i].url;
             break;
           }
         }
+        let date = '';
+        for(let i = 0; i < 10; i++) date += hotel.date[i];
 
         return (
-            <li> {' url : '} {url} {' date : '} {hotel.month} {' price : '} {hotel.price} </li>
+            <li> {' url : '} <a href="url">{url}</a> {' date : '} {date} {' price : '} {hotel.price} </li>
         )
    })
 
