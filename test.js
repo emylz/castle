@@ -143,8 +143,8 @@ async function chateaux(){
             if(compteur < 200)
             {
               console.log(links.length);
-              fs.writeFile('./app/src/hotel.json', JSON.stringify(jsonTab, null, 4), function(err){
-              															console.log('File successfully written! - Check your project directory for the output.json file');
+              fs.writeFile('./app/src/Component/hotel.json', JSON.stringify(jsonTab, null, 4), function(err){
+              															console.log('hotel.json successfully written! - Check/app/src/Component for hotel.json file');
               															if (err) console.log(err);
               															});
               for(let i = 0; i < idArray.length; i++)
@@ -152,8 +152,8 @@ async function chateaux(){
                 var obj = {url:links[i], id:idArray[i]};
                 jsonArr.push(obj);
               }
-              fs.writeFile('./app/src/hotel_id.json', JSON.stringify(jsonArr, null, 4), function(err){
-              															console.log('File successfully written! - Check your project directory for the output.json file');
+              fs.writeFile('./app/src/Component/hotel_id.json', JSON.stringify(jsonArr, null, 4), function(err){
+              															console.log('hotel_id.json successfully written! - Check /app/src/Component for hotel_id.json file');
               															if (err) console.log(err);
               															});
             }
@@ -171,12 +171,14 @@ async function getPrice(id, mois){
 				if (week_end.getDay() == 6)
 				{
           if (body['2019-'+mois].pricesPerDay[i]!=undefined){
-                  array.push(body['2019-'+mois].pricesPerDay[i]);
+                  //array.push(body['2019-'+mois].pricesPerDay[i]);
+                  let tmp = {id:id, month:mois, date:week_end, price:body['2019-'+mois].pricesPerDay[i] };
+                  jsonTab.push(tmp);
             }
 				}
 		}
-    let tmp = {id:id, month : mois, p1:array[0] , p2: array[1], p3: array[2], p4:array[3]};
-    jsonTab.push(tmp);
+    //let tmp = {id:id, month : mois, p1:array[0] , p2: array[1], p3: array[2], p4:array[3]};
+    //jsonTab.push(tmp);
  }
 
 chateaux();
