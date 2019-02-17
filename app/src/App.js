@@ -19,18 +19,18 @@ class App extends Component {
   price_month(month){
     for(let i = 0; i < this.state.data.length; i++)
     {
-      if(this.state.data[i].month == month)
+      if(this.state.data[i].month === month)
       {
-        choice.push(this.data.hotel[i]);
+        choice.push(this.state.data.hotel[i]);
       }
     }
-    for(let i = 0; i < this.url.data.length; i++)
+    for(let i = 0; i < this.state.url.length; i++)
     {
       for(let j = 0; j < choice.length; j++)
       {
-        if(choice[j].id == this.url.data[i].id)
+        if(choice[j].id === this.state.url[i].id)
         {
-            idHotel.push(this.url.data[i]);
+            idHotel.push(this.state.url[i]);
         }
       }
     }
@@ -40,11 +40,13 @@ class App extends Component {
 
 
  render() {
+
+   var tabl = this.price_month(7);
    var hotelList = this.state.data.map(hotel => {
         let url = '';
         for(let i = 0; i < this.state.data.length; i++)
         {
-          if(hotel.id == this.state.url[i].id)
+          if(hotel.id === this.state.url[i].id)
           {
             url = this.state.url[i].url;
             break;
@@ -54,38 +56,44 @@ class App extends Component {
         for(let i = 0; i < 10; i++) date += hotel.date[i];
 
         return (
-            <li> {' url : '} <a href={url}>{url}</a> {' date : '} {date} {' price : '} {hotel.price} </li>
+            <li> <b> {' url : '}</b> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
         )
    })
 
 	return (
       <div className="App">
 
+      <header align="center"><b> <big><big><big>This is the cheaper hotels of the week_end of the year 2019 </big></big></big></b> </header>
+      <br/><br/>
+      <form /*method="post" action=""*/ align="center">
+        <p>
+          <label for="choice"><big>Which month do you want ?</big></label><br />
+          <select name="date" id="date_">
+            <option value="All">All</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
+        </p>
+        <button> Select </button>
+      </form>
+      <br/><br/>
+
 	     <ul>
           {hotelList}
         </ul>
 
 
-        <form /*method="post" action=""*/>
-          <p>
-            <label for="choice">Which month do you want ?</label><br />
-            <select name="date" id="date_">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-            </select>
-          </p>
-          <button> select </button>
-        </form>
+
 
       </div>
     );
