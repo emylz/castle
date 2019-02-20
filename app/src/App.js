@@ -90,7 +90,7 @@ class App extends Component {
         return (
             <li> <b> {' url : '}</b> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
         )}
-        else if(month!=='2019-' && (this.state.price!=='' || this.state.operator!=='')){
+        else if(month!=='2019-' && this.state.price!=='' && this.state.operator!==''){
             let price_string = '';
             for(let i = 3; i < hotel.price.length; i++){
               price_string+=hotel.price[i];
