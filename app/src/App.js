@@ -31,7 +31,7 @@ class App extends Component {
   }
 
   onMonthChange = e =>{
-    this.setState({month:Number(e.target.value)});
+    this.setState({month:e.target.value});
   }
 
   onClickDate = ()=>{
@@ -90,6 +90,50 @@ class App extends Component {
         return (
             <li> <b> {' url : '}</b> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
         )}
+        else if(month!=='2019-' && (this.state.price!=='' || this.state.operator!=='')){
+            let price_string = '';
+            for(let i = 3; i < hotel.price.length; i++){
+              price_string+=hotel.price[i];
+            }
+            let price = Number(price_string);
+            if(this.state.operator==='>'){
+                if(month == dateHotel && price > this.state.price)
+                {
+                  for(let i = 0; i < this.state.data.length; i++)
+                  {
+                    if(hotel.id === this.state.url[i].id)
+                    {
+                      url = this.state.url[i].url;
+                      break;
+                    }
+                  }
+                  let date = '';
+                  for(let i = 0; i < 10; i++) date += hotel.date[i];
+                  return (
+                      <li> <b> {' url : '}</b> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
+                  )
+                }
+            }
+            else{
+              if(month == dateHotel && price < this.state.price)
+              {
+                for(let i = 0; i < this.state.data.length; i++)
+                {
+                  if(hotel.id === this.state.url[i].id)
+                  {
+                    url = this.state.url[i].url;
+                    break;
+                  }
+                }
+                let date = '';
+                for(let i = 0; i < 10; i++) date += hotel.date[i];
+                return (
+                    <li> <b> {' url : '}</b> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
+                )
+              }
+
+            }
+        }
         else if(month!=='2019-'){
           if(month == dateHotel)
           {
