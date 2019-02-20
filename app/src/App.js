@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   onPriceChange = e =>{
-    this.setState({price:'US$'+e.target.value});
+    this.setState({price:e.target.value});
   }
 
   onOperatorChange = e =>{
@@ -31,7 +31,7 @@ class App extends Component {
   }
 
   onMonthChange = e =>{
-    this.setState({month:e.target.value});
+    this.setState({month:Number(e.target.value)});
   }
 
   onClickDate = ()=>{
@@ -109,9 +109,14 @@ class App extends Component {
             )}
           }
         else if(this.state.price!=='' && this.state.operator !== ''){
+            let price_string = '';
+            for(let i = 3; i < hotel.price.length; i++){
+              price_string+=hotel.price[i];
+            }
+            let price = Number(price_string);
             if(this.state.operator==='>')
             {
-              if(hotel.price > this.state.price || hotel.price.length > this.state.price.length)
+              if(price > this.state.price)
               {
                 for(let i = 0; i < this.state.data.length; i++)
                 {
@@ -129,7 +134,7 @@ class App extends Component {
             }
             else
             {
-              if(hotel.price < this.state.price && hotel.price.length <= this.state.price.length)
+              if(price < this.state.price)
               {
                 for(let i = 0; i < this.state.data.length; i++)
                 {
