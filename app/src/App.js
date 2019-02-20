@@ -5,9 +5,7 @@ import hotel_id from './Component/hotel_id.json';
 
 import relais_logo from './Component/Logo_Relais_et_Chateaux.png';
 import michelin_logo from './Component/michelin_logo.jpg';
-
-var choice = [];
-var idHotel = [];
+import bg from './Component/campagne.jpg';
 
 class App extends Component {
 
@@ -97,7 +95,7 @@ class App extends Component {
             }
             let price = Number(price_string);
             if(this.state.operator==='>'){
-                if(month == dateHotel && price > this.state.price)
+                if(month === dateHotel && price > this.state.price)
                 {
                   for(let i = 0; i < this.state.data.length; i++)
                   {
@@ -115,7 +113,7 @@ class App extends Component {
                 }
             }
             else{
-              if(month == dateHotel && price < this.state.price)
+              if(month === dateHotel && price < this.state.price)
               {
                 for(let i = 0; i < this.state.data.length; i++)
                 {
@@ -135,7 +133,7 @@ class App extends Component {
             }
         }
         else if(month!=='2019-'){
-          if(month == dateHotel)
+          if(month === dateHotel)
           {
             for(let i = 0; i < 7; i++) dateHotel += hotel.date[i];
             for(let i = 0; i < this.state.data.length; i++)
@@ -195,16 +193,19 @@ class App extends Component {
                 )}
             }
           }
-        })
+        return null;})
 
 	return (
+
+    <body background={bg}>
       <div className="App">
 
-      <div align="center"><img src={relais_logo} height="55" width="55"/>  <img src={michelin_logo} height="55" width="55"/></div>
+      <div id="logo" align="center"><img src={relais_logo} height="55" width="55" alt="relais"/>  <img src={michelin_logo} height="55" width="55" alt="michelin"/></div>
       <header align="center"><b><big><big><big>The availabilities of star-rated restaurants and hotels for all the weekends 2019 sorted by price:</big></big></big></b></header>
 
       <br/><br/>
-      <div align="center">
+      <div align="center" id="filter">
+       <br/>
        <label> Wich month ?</label><br/>
         <select onChange={this.onMonthChange}>
          <option value=""></option>
@@ -229,27 +230,23 @@ class App extends Component {
          <option value=">"> &gt; </option>
         </select> {' '}
         <input onChange={this.onPriceChange}/> {' '}
-      </div>
       <br/><br/>
-
-      <div align="center">
       <button onClick={this.onClickDate}> Sorted by date </button>
       {' '}
       <button onClick={this.onClickPriceAsc}> Sorted by price asc </button>
       {' '}
       <button onClick={this.onClickPriceDesc}> Sorted by price desc </button>
+      <br/>
       </div>
 
       <br/><br/>
 
-	     <ul>
+	     <ul align="center" id="result">
+          <br/>
           {hotelList}
       </ul>
-
-
-
-
       </div>
+      </body>
     );
   }
 }

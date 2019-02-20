@@ -1,0 +1,30 @@
+ #filter, #result{
+  background-color: white;
+  margin-left: 17%;
+  margin-right: 17%;
+}
+
+#logo{
+  background-color: white;
+  margin-left: 40%;
+  margin-right: 40%;
+}
+
+header{
+  align:center;
+  width:90%;
+  height: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body{
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+ul {
+  list-style-type: none;
+}
