@@ -1,5 +1,7 @@
  #filter, #result{
-  background-color: white;
+  border-radius: 25px;
+  background-color: #ecf9ec;
+  opacity: 0.9;
   margin-left: 17%;
   margin-right: 17%;
 }

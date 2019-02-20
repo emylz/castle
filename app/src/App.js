@@ -44,28 +44,6 @@ class App extends Component {
     this.setState({data:hotel.sort((a,b) => (a.price.length < b.price.length) ? 1 : ((a.price.length > b.price.length) ? -1: ((a.price < b.price) ? 1 : ((b.price < a.price) ? -1 : 0))))});
   }
 
-  /*price_month(month){
-    for(let i = 0; i < this.state.data.length; i++)
-    {
-      if(this.state.data[i].month === month)
-      {
-        choice.push(this.state.data.hotel[i]);
-      }
-    }
-    for(let i = 0; i < this.state.url.length; i++)
-    {
-      for(let j = 0; j < choice.length; j++)
-      {
-        if(choice[j].id === this.state.url[i].id)
-        {
-            idHotel.push(this.state.url[i]);
-        }
-      }
-    }
-    choice.sort((a,b) => (a.price >= b.price) ? 1 : -1);
-    return choice;
-  }*/
-
  render() {
 
    var hotelList = this.state.data.map(hotel => {
