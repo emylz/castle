@@ -5,7 +5,7 @@ import hotel_id from './Component/hotel_id.json';
 
 import relais_logo from './Component/Logo_Relais_et_Chateaux.png';
 import michelin_logo from './Component/michelin_logo.jpg';
-import bg from './Component/campagne.jpg';
+import bg from './Component/pool_forest.png';
 
 class App extends Component {
 
