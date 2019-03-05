@@ -64,7 +64,7 @@ class App extends Component {
         let date = '';
         for(let i = 0; i < 10; i++) date += hotel.date[i];
         return (
-            <li> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
+            <li> <a href={url} target="_blank" rel="noopener noreferrer">{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
         )}
         else if(month!=='2019-' && this.state.price!=='' && this.state.operator!==''){
             let price_string = '';
@@ -86,7 +86,7 @@ class App extends Component {
                   let date = '';
                   for(let i = 0; i < 10; i++) date += hotel.date[i];
                   return (
-                      <li><a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
+                      <li><a href={url} target="_blank" rel="noopener noreferrer">{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
                   )
                 }
             }
@@ -104,7 +104,7 @@ class App extends Component {
                 let date = '';
                 for(let i = 0; i < 10; i++) date += hotel.date[i];
                 return (
-                    <li> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
+                    <li> <a href={url} target="_blank" rel="noopener noreferrer">{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
                 )
               }
 
@@ -125,7 +125,7 @@ class App extends Component {
             let date = '';
             for(let i = 0; i < 10; i++) date += hotel.date[i];
             return (
-                <li><a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
+                <li><a href={url} target="_blank" rel="noopener noreferrer">{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
             )}
           }
         else if(this.state.price!=='' && this.state.operator !== ''){
@@ -149,7 +149,7 @@ class App extends Component {
                 let date = '';
                 for(let i = 0; i < 10; i++) date += hotel.date[i];
                 return (
-                    <li> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
+                    <li> <a href={url} target="_blank" rel="noopener noreferrer">{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
                 )}
             }
             else
@@ -167,7 +167,7 @@ class App extends Component {
                 let date = '';
                 for(let i = 0; i < 10; i++) date += hotel.date[i];
                 return (
-                    <li> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
+                    <li> <a href={url} target="_blank" rel="noopener noreferrer">{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
                 )}
             }
           }
