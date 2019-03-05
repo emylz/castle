@@ -176,7 +176,7 @@ class App extends Component {
 	return (
 
     <body background={bg}>
-      <div className="App">
+      <div className="App" background={bg}>
 
       <div id="logo" align="center"><img src={relais_logo} height="55" width="55" alt="relais"/>  <img src={michelin_logo} height="55" width="55" alt="michelin"/></div>
       <header align="center"><b><big><big><big>The availabilities of star-rated restaurants and hotels for all the weekends 2019 sorted by price:</big></big></big></b></header>
