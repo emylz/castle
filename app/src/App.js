@@ -64,7 +64,7 @@ class App extends Component {
         let date = '';
         for(let i = 0; i < 10; i++) date += hotel.date[i];
         return (
-            <li> <b> {' url : '}</b> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
+            <li> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
         )}
         else if(month!=='2019-' && this.state.price!=='' && this.state.operator!==''){
             let price_string = '';
@@ -86,7 +86,7 @@ class App extends Component {
                   let date = '';
                   for(let i = 0; i < 10; i++) date += hotel.date[i];
                   return (
-                      <li> <b> {' url : '}</b> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
+                      <li><a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
                   )
                 }
             }
@@ -104,7 +104,7 @@ class App extends Component {
                 let date = '';
                 for(let i = 0; i < 10; i++) date += hotel.date[i];
                 return (
-                    <li> <b> {' url : '}</b> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
+                    <li> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
                 )
               }
 
@@ -125,7 +125,7 @@ class App extends Component {
             let date = '';
             for(let i = 0; i < 10; i++) date += hotel.date[i];
             return (
-                <li> <b> {' url : '}</b> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
+                <li><a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
             )}
           }
         else if(this.state.price!=='' && this.state.operator !== ''){
@@ -149,7 +149,7 @@ class App extends Component {
                 let date = '';
                 for(let i = 0; i < 10; i++) date += hotel.date[i];
                 return (
-                    <li> <b> {' url : '}</b> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
+                    <li> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
                 )}
             }
             else
@@ -167,7 +167,7 @@ class App extends Component {
                 let date = '';
                 for(let i = 0; i < 10; i++) date += hotel.date[i];
                 return (
-                    <li> <b> {' url : '}</b> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
+                    <li> <a href={url}>{url}</a> <b>{' date : '}</b> {date} <b>{' price : '}</b> {hotel.price} </li>
                 )}
             }
           }
@@ -185,6 +185,7 @@ class App extends Component {
       <div align="center" id="filter">
        <br/>
        <label> Wich month ?</label><br/>
+       <div class="styled-select blue semi-square">
         <select onChange={this.onMonthChange}>
          <option value=""></option>
          <option value="01">January</option>
@@ -200,20 +201,24 @@ class App extends Component {
          <option value="11">November</option>
          <option value="12">December</option>
        </select>{' '}
+       </div>
        <br/><br/>
        <label> Wich price ?</label><br/>
+       <div class="styled-select blue semi-square">
         <select onChange={this.onOperatorChange}>
          <option value="">   </option>
          <option value="<"> &lt; </option>
          <option value=">"> &gt; </option>
         </select> {' '}
-        <input onChange={this.onPriceChange}/> {' '}
+        </div>
+        <br/>
+        <input onChange={this.onPriceChange} placeholder="Your price..."/> {' '}
       <br/><br/>
-      <button onClick={this.onClickDate}> Sorted by date </button>
+      <button onClick={this.onClickDate} class="button button1"> Sorted by date </button>
       {' '}
-      <button onClick={this.onClickPriceAsc}> Sorted by price asc </button>
+      <button onClick={this.onClickPriceAsc} class="button button2"> Sorted by price asc </button>
       {' '}
-      <button onClick={this.onClickPriceDesc}> Sorted by price desc </button>
+      <button onClick={this.onClickPriceDesc} class="button button3"> Sorted by price desc </button>
       <br/>
       </div>
 

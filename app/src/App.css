@@ -6,6 +6,100 @@
   margin-right: 17%;
 }
 
+.button {
+  background-color: white;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 25px;
+}
+
+.button1, .button2, .button3{
+  background-color: white;
+  color: black;
+  border: 2px solid #e6fff2;
+}
+
+.button1:hover, .button2:hover, .button3:hover{
+  background-color: #008CBA;
+  color: white;
+}
+
+.styled-select {
+   background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+   height: 29px;
+   overflow: hidden;
+   width: 240px;
+}
+
+.styled-select select {
+   background: transparent;
+   border: none;
+   font-size: 14px;
+   height: 29px;
+   padding: 5px;
+   width: 268px;
+}
+
+.styled-select.slate {
+   background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
+   height: 34px;
+   width: 240px;
+}
+
+.styled-select.slate select {
+   border: 1px solid #ccc;
+   font-size: 16px;
+   height: 34px;
+   width: 268px;
+}
+
+.semi-square {
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+}
+
+.blue{ background-color: #b3ccff; }
+
+input {
+
+	border:2px solid #b3ccff;
+	font-size:1.2em;
+	padding:.25em .5em .3125em;
+	color:rgba(255,255,255,.5);
+	border-radius:.25em;
+  background-color: #b3ccff;
+	transition:all .100s;
+
+	&:focus{
+		outline:none;
+		color:rgba(255,255,255,.75);
+		border-color:rgba(255,255,255,.75);
+	}
+
+	&.keyup {
+		color:white;
+		border-color:white;
+		text-shadow:0 0 .125em white;
+		box-shadow:0 0 .25em white,inset 0 0 .25em white;
+	}
+}
+
+input, select, textarea { color: black; }
+
+input {
+	font-family: "Arial Rounded MT Bold","Helvetica Rounded",Arial,sans-serif;
+}
+
 #logo{
   background-color: white;
   margin-left: 40%;
